@@ -44,26 +44,26 @@ function TaskList(tasks) {
     tasks.forEach((task) => this.addTask(new Task(...task)));
 
     // Filtering functions
-    all = () => {
+    const all = () => {
         return this.allTasks;
     }; 
     
-    important = () => {
+    const important = () => {
         return this.allTasks.filter(task => task.isImportant);
     };
     
-    today = () => {
+    const today = () => {
         return this.allTasks.filter(task => {
             const now = dayjs();
             return task.hasDeadline ? task.deadline.date() === now.date() && task.deadline.month() === now.month() && task.deadline.year() === now.year() : false
         });
     };
     
-    nextSevenDays = () => {
+    const nextSevenDays = () => {
         return this.allTasks.filter(task => task.hasDeadline ? dayjs(task.deadline).isBetween(dayjs(), dayjs().add(7, 'day')) : false);
     };
     
-    private = () => {
+    const privateTasks = () => {
         return this.allTasks.filter(task => task.isPrivate);
     };
 
@@ -72,7 +72,7 @@ function TaskList(tasks) {
         'important': important,
         'today': today,
         'nextSevenDays': nextSevenDays,
-        'private': private
+        'private': privateTasks
     };
 
     // TODO: Keep track of the active filter!
@@ -123,13 +123,13 @@ function listElement(task) {
 
     // private icon
     const privateIcon = document.createElement('span');
-    privateIcon.classList.add("text-center col-lg-1");
+    privateIcon.className = "text-center col-lg-1";
     if (task.isPrivate)
-        privateIcon.classList.add("fas fa-user");
+        privateIcon.classList.add("fas", "fa-user");
 
     // deadline date
     const deadline = document.createElement('span');
-    deadline.classList.add("date col-lg-5");
+    deadline.className = "date col-lg-5";
     if (task.hasDeadline)
         deadline.textContent = task.formatDate();
 
@@ -142,6 +142,8 @@ function listElement(task) {
     div.appendChild(checkbox);
     div.appendChild(checkboxLabel);
 
+    console.log(newTodo);
+
     return newTodo
 }
 
@@ -150,22 +152,29 @@ function addFilteredTasks(filter, taskList) {
      * Populate with tasks of the active section
      */
 
-    // Filter tasks
-    const tasksWithFilter = taskList.filter[filter]();
+    // Filter tasks: 'all', 'important', 'private', 'nextSevenDays', 'today' 
+    // TODO: check here if correct + add check on filter value
+    const tasksWithFilter = taskList.filters[filter]();
 
     // Create new nodes of <ul>
-    const nodes = tasksWithFilter.forEach(task => listElement(task));
+    const nodes = [];
+    for (let i = 0; i < tasksWithFilter.length; i++){
+        nodes.push(listElement(tasksWithFilter[i]));
+    }
+    // const nodes = tasksWithFilter.forEach(task => listElement(task));
 
     /**
-     * Access <ul>
-     * Remove existing nodes
      * Add new nodes
      * Switch to active / non-active the classes
      */
     const ul = document.querySelector('.tasks-list');
+    ul.innerHTML = ""; // Remove existing nodes
+    nodes.forEach((node) => ul.appendChild(node)); // Add new nodes
 }
 
 // Main
 // Include functions above in event listeners
+// Make design responsive
 
 const tasks = new TaskList(TASKS);
+addFilteredTasks('all', tasks);
