@@ -1,0 +1,83 @@
+/* Global */
+
+.vheight-100 {
+    min-height: 100vh; /* 100% of the viewport height */
+}
+
+
+/* Font Family */
+body {
+    font-family: "Ubuntu";
+}
+
+
+/* list-group-item styles */
+.list-group-item {
+    background-color: transparent;
+}
+
+.list-group-item.active {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+}
+
+.list-group-item-action:hover {
+    background-color: #9becae;
+}
+
+
+/* Top Navbar Section */
+#top-navbar {
+    background-color: #28a745;
+    color: white;
+}
+
+.search-bar {
+    text-align: center;
+}
+
+
+/* Side Navbar Section */
+#sidebar {
+    padding-top: 1rem;
+}
+
+
+/* Tasks Section */
+
+.task {
+    padding-left: 0;
+    padding-bottom: 0.5rem;
+}
+
+.tasks-list {
+    padding-left: 1rem;
+}
+
+.checkbox {
+    text-align: left;
+}
+
+.private-icon {
+    padding-top: 0.3rem;
+}
+
+.important-task {
+    color : red;
+}
+
+.date {
+    text-align: right;
+}
+
+/* New task button */
+
+.fixed-right-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1030;
+    margin: 0 1.5rem 1.5rem 0;
+    border-radius: 50%;
+}
