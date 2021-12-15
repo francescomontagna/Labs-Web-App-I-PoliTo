@@ -36,6 +36,7 @@ function TaskList(tasks) {
      */ 
 
     this.allTasks = [];
+    this.activeFilter = 'all';
     this.addTask = (newTask) => {
         if (!this.allTasks.map(task => task.id).includes(newTask.id)) // Add Task if not present
             this.allTasks.push(newTask);
@@ -67,15 +68,14 @@ function TaskList(tasks) {
         return this.allTasks.filter(task => task.isPrivate);
     };
 
+    // Keys correspond to id of the aside navbar elements
     this.filters = {
         'all': all,
         'important': important,
         'today': today,
-        'nextSevenDays': nextSevenDays,
+        'next-week': nextSevenDays,
         'private': privateTasks
     };
-
-    // TODO: Keep track of the active filter!
 
 }
 
@@ -142,39 +142,72 @@ function listElement(task) {
     div.appendChild(checkbox);
     div.appendChild(checkboxLabel);
 
-    console.log(newTodo);
-
     return newTodo
 }
 
-function addFilteredTasks(filter, taskList) {
+
+function toggleNavbar(elementId, taskList) {
     /**
-     * Populate with tasks of the active section
+     * Toggle aside navbar elements: active ==> '', elementId ==> active
+     * 
+     * Args:
+     * elementId (string): id of the filter to be activated
+     * taskList (TaskList): original TaskList data structure. Contains previously active filter
      */
 
-    // Filter tasks: 'all', 'important', 'private', 'nextSevenDays', 'today' 
-    // TODO: check here if correct + add check on filter value
-    const tasksWithFilter = taskList.filters[filter]();
+    // Deactivate previously active element
+    const oldActiveFilter = document.querySelector(`#${taskList.activeFilter}`);
+    if (oldActiveFilter.classList.contains('active')){
+        oldActiveFilter.classList.toggle('active');
+        oldActiveFilter.firstElementChild.classList.replace('text-light', 'text-secondary');
+    }
+
+    // Activate new element
+    const newActiveFilter = document.querySelector(`#${elementId}`);
+    newActiveFilter.classList.toggle('active')
+    newActiveFilter.firstElementChild.classList.replace('text-secondary', 'text-light');
+
+    taskList.activeFilter = elementId;
+}
+
+function filterTasks(filter, taskList) {
+    /**
+     * Populate with tasks of the active section
+     * 
+     * Args:
+     * filter (string): aside navbar filter to activate
+     * taskList (TaskList): original TaskList data structure
+     * 
+     */
+
+    if (! Object.keys(taskList.filters).includes(filter))
+        throw (new Error(`Filter not allowed! Should be one between 'all', 'important', 'private', 'next-week', 'today', instead is ${filter}`))
+    const tasksWithFilter = taskList.filters[filter](); // Get the filtered list of tasks
 
     // Create new nodes of <ul>
     const nodes = [];
     for (let i = 0; i < tasksWithFilter.length; i++){
         nodes.push(listElement(tasksWithFilter[i]));
     }
-    // const nodes = tasksWithFilter.forEach(task => listElement(task));
 
-    /**
-     * Add new nodes
-     * Switch to active / non-active the classes
-     */
     const ul = document.querySelector('.tasks-list');
     ul.innerHTML = ""; // Remove existing nodes
     nodes.forEach((node) => ul.appendChild(node)); // Add new nodes
+
+    toggleNavbar(filter, taskList);
 }
 
 // Main
-// Include functions above in event listeners
-// Make design responsive
+// TODO: Make design responsive
 
 const tasks = new TaskList(TASKS);
-addFilteredTasks('all', tasks);
+filterTasks('all', tasks);
+
+
+const asideNavabarElems = document.querySelectorAll('.aside-navbar-el');
+let filter = "";
+for (let i = 0; i < asideNavabarElems.length; i++){
+    asideNavabarElems[i].addEventListener('click', (event) => {
+        filterTasks(asideNavabarElems[i].getAttribute('id'), tasks);
+    })
+}
