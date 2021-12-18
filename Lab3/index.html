@@ -38,34 +38,36 @@
 <body>
 
     <!-- Top Navbar -->
-    <section id="top-navbar">
-        <nav class="navbar navbar-dark">
-            <a class="navbar-brand" href="#"><span class="far fa-check-square"></span> ToDo Manager</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            </form>
-            <a class="text-light" href="https://www.francescomontagna.com" target="_blank"><span class="navbar-user-icon fas fa-user"></span></a>
-        </nav>
-    </section>
+    <nav class="navbar navbar-dark bg-success navbar-expand-md d-flex justify-content-between">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#left-sidebar" aria-controls="left-sidebar" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="far fa-check-square"></span> ToDo Manager</a>
+        <form class="form-inline d-none d-md-block">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        </form>
+        <a class="text-light" href="https://www.francescomontagna.com" target="_blank"><span class="navbar-user-icon fas fa-user"></span></a>
+    </nav>
 
 
     <div class="container-fluid">
         <div class="row vheight-100">
 
             <!-- Side Navbar -->
-            <aside class="bg-light col-12 col-sm-3" id="sidebar">
-                    <ul class="sidebar list-unstyled list-group list-group-flush">
+            <!-- TODO - Fix: when aside is closed and I go back to large screen, aside is not shown anymore -->
+                <aside class="collapse show bg-light col-12 col-sm-3" id="left-sidebar">
+                    <ul class="list-unstyled list-group list-group-flush">
                         <li id="all" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#">All</a></li>
                         <li id="important" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#">Important</a></li>
                         <li id="today" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#">Today</a></li>
                         <li id="next-week" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#">Next 7 Days</a></li>
                         <li id="private" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#">Private</a></li>
                     </ul>
-            </aside>
+                </aside>
 
             <!-- Page Tasks -->
             <main class="col-sm-9 col-12">
-                <h1 class="pt-1">All</h1>
+                <h1 class="pt-1 filter-heading"></h1>
 
                 <form action="">
                     <ul class="tasks-list list-unstyled list-group list-group-flush">

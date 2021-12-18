@@ -102,7 +102,7 @@ function listElement(task) {
 
     // div: checkbox + description
     const div = document.createElement('div');
-    div.className = "checkbox col-lg-6";
+    div.className = "checkbox col-6";
 
     const checkbox = document.createElement('input');
     checkbox.setAttribute('type', 'checkbox');
@@ -123,13 +123,13 @@ function listElement(task) {
 
     // private icon
     const privateIcon = document.createElement('span');
-    privateIcon.className = "text-center col-lg-1";
+    privateIcon.className = "text-center col-1";
     if (task.isPrivate)
         privateIcon.classList.add("fas", "fa-user");
 
     // deadline date
     const deadline = document.createElement('span');
-    deadline.className = "date col-lg-5";
+    deadline.className = "date col-5";
     if (task.hasDeadline)
         deadline.textContent = task.formatDate();
 
@@ -195,6 +195,16 @@ function filterTasks(filter, taskList) {
     nodes.forEach((node) => ul.appendChild(node)); // Add new nodes
 
     toggleNavbar(filter, taskList);
+
+    // Update title
+    const headings = {
+        'all': 'All',
+        'important': 'Important',
+        'today': 'Today',
+        'next-week': 'Next Week',
+        'private': 'Private'
+    }
+    document.querySelector('.filter-heading').textContent = headings[filter];
 }
 
 // Main

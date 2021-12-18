@@ -19,6 +19,10 @@ body {
 .list-group-item.active {
     background-color: #28a745;
     border-color: #28a745;
+}
+
+/* Try to make it work... */
+.list-group-item.active > a:hover {
     color: white;
 }
 
@@ -27,19 +31,8 @@ body {
 }
 
 
-/* Top Navbar Section */
-#top-navbar {
-    background-color: #28a745;
-    color: white;
-}
-
-.search-bar {
-    text-align: center;
-}
-
-
 /* Side Navbar Section */
-#sidebar {
+#left-sidebar {
     padding-top: 1rem;
 }
 
