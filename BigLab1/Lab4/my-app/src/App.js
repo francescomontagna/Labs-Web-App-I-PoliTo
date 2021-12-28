@@ -12,8 +12,9 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUserCircle, faUser} from '@fortawesome/free-solid-svg-icons';
+import { faCheckSquare} from '@fortawesome/free-regular-svg-icons';
 
-library.add(faUserCircle, faUser);
+library.add(faUserCircle, faUser, faCheckSquare);
 
 
 
@@ -24,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <Navbar bg='success' className='d-flex justify-content-between px-2'>
-        <Navbar.Brand href='#'><span> ToDo Manager</span></Navbar.Brand>
+        <Navbar.Brand href='#'> <FontAwesomeIcon icon={faCheckSquare}/> <span> ToDo Manager</span></Navbar.Brand>
         
       <Form className="d-flex">
         <FormControl
@@ -35,7 +36,7 @@ function App() {
         />
       </Form>
       
-      <a class="text-light" href="https://www.francescomontagna.com" target="_blank" rel='noreferrer'><FontAwesomeIcon icon={faUserCircle} size='lg'/></a>
+      <a className="text-light" href="https://www.francescomontagna.com" target="_blank" rel='noreferrer'><FontAwesomeIcon icon={faUserCircle} size='lg'/></a>
 
       </Navbar>
 
@@ -45,29 +46,50 @@ function App() {
           
 
           <Col as='aside' md={3}>
-          <ListGroup as="ul">
-            <ListGroup.Item as="li" active>
-              Cras justo odio
-            </ListGroup.Item>
-            <ListGroup.Item as="li">Dapibus ac facilisis in</ListGroup.Item>
-            <ListGroup.Item as="li" disabled>
-              Morbi leo risus
-            </ListGroup.Item>
-            <ListGroup.Item as="li">Porta ac consectetur ac</ListGroup.Item>
+          <ListGroup as="ul" variant="flush" defaultActiveKey="#all">
+            <ListGroup.Item action href="#all" >All</ListGroup.Item>
+            <ListGroup.Item action href="#important" >Important</ListGroup.Item>
+            <ListGroup.Item action href="#today" >Today</ListGroup.Item>
+            <ListGroup.Item action href="#next-week" >Next 7 Days</ListGroup.Item>
+            <ListGroup.Item action href="#private" >Private</ListGroup.Item>
           </ListGroup>
-            {/* <ul class="list-unstyled list-group list-group-flush">
-              <li id="all" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#top">All</a></li>
-              <li id="important" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#top">Important</a></li>
-              <li id="today" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#top">Today</a></li>
-              <li id="next-week" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#top">Next 7 Days</a></li>
-              <li id="private" class="aside-navbar-el list-group-item"><a class="text-secondary" href="#top">Private</a></li>
-            </ul> */}
           </Col>
 
-          <Col as='main'>
-            <p>
-              This is the main section
-            </p>
+          <Col as='main' sm={9}>
+            <h1 className="pt-1 filter-heading d-flex justify-content-left">All</h1>
+
+            <Form>
+              <ListGroup as="ul" variant="flush">
+                <ListGroup.Item>
+                  <Form.Group controlId="1">
+                    <Form.Check type="checkbox" label="Complete Lab 4" />
+                  </Form.Group>
+
+                </ListGroup.Item>
+
+
+                <ListGroup.Item>
+                  <Form.Group controlId="2">
+                    <Form.Check type="checkbox" label="Buy some groceries" />
+                  </Form.Group>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <Form.Group controlId="3">
+                    <Form.Check type="checkbox" label="Read a good book!" />
+                  </Form.Group>
+                </ListGroup.Item>
+
+                <ListGroup.Item>
+                  <Form.Group controlId="4">
+                    <Form.Check type="checkbox" label="Watch Mr. Robot" />
+                  </Form.Group>
+                </ListGroup.Item>
+
+              </ListGroup>
+
+            </Form>
+
           </Col>
 
         </Row>
