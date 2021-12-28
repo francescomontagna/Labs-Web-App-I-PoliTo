@@ -28,18 +28,13 @@ body {
 
 
 /* Top Navbar Section */
-#top-navbar {
-    background-color: #28a745;
-    color: white;
-}
-
-.search-bar {
+/* .search-bar {
     text-align: center;
-}
+} */
 
 
 /* Side Navbar Section */
-#sidebar {
+#left-sidebar {
     padding-top: 1rem;
 }
 

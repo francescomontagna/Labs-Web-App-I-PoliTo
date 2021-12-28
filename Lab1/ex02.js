@@ -16,7 +16,6 @@ function Task(id, description, isUrgent = false, isPrivate = false, deadline = '
     this.deadline = deadline && dayjs(deadline); // condition to format
 
     this.formatDeadline = (format) => {
-
         return this.deadline ? dayjs(deadline).format(format) : '<not defined>'
     }
 
@@ -27,14 +26,15 @@ function Task(id, description, isUrgent = false, isPrivate = false, deadline = '
 }
 
 function TaskList() {
+    // Create a new list of tasks
     this.myTasks = [];
     this.add = task => this.myTasks.push(task);
 }
 
 function load() {
+    // Load all the tasks in the DB
     let tasks = new TaskList();
     return new Promise((resolve, reject) => {
-        
         const query = 'SELECT * FROM tasks';
         db.all(query, (err, rows) => {
             if(err) reject(err);
@@ -51,6 +51,7 @@ function load() {
 
 
 function loadWithDeadline(deadline) {
+    // Load only tasks whose deadline is after a given date
     let tasks = new TaskList();
     return new Promise((resolve, reject) => {
         
@@ -68,10 +69,11 @@ function loadWithDeadline(deadline) {
     });
 }
 
+
 function loadWithWord(word) {
+    // Load only tasks cotaining a given word
     let tasks = new TaskList();
     return new Promise((resolve, reject) => {
-        
         const query = 'SELECT * FROM tasks WHERE tasks.description LIKE ?';
         db.all(query, ['%' + word + '%'], (err, rows) => {
             if(err) reject(err);
