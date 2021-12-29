@@ -38,7 +38,23 @@
 }
 
 
+/* Global */
+
+.vheight-100 {
+  min-height: 100vh; /* 100% of the viewport height */
+}
+
+
 /* Aside */
-/* .App-ListGroup.Item {
-  background-color: red;
+a.list-group-item {
+  background-color: transparent;
+}
+
+/* Main */
+/* div.list-group-item {
+  padding-left : 0px;
 } */
+
+.date {
+  text-align: right;
+}

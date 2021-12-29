@@ -24,48 +24,53 @@ function App() {
   // Returns a React Element. JSX syntax
   return (
     <div className="App">
-      <Navbar bg='success' className='d-flex justify-content-between px-2'>
+      <Navbar bg='success' variant="dark" className='d-flex justify-content-between px-2'>
         <Navbar.Brand href='#'> <FontAwesomeIcon icon={faCheckSquare}/> <span> ToDo Manager</span></Navbar.Brand>
         
-      <Form className="d-flex">
-        <FormControl
-          type="search"
-          placeholder="Search"
-          className="me-2"
-          aria-label="Search"
-        />
-      </Form>
-      
-      <a className="text-light" href="https://www.francescomontagna.com" target="_blank" rel='noreferrer'><FontAwesomeIcon icon={faUserCircle} size='lg'/></a>
+        <Form className="d-flex">
+          <FormControl
+            type="search"
+            placeholder="Search"
+            className="me-2"
+            aria-label="Search"
+          />
+        </Form>
+        
+        <a className="text-light" href="https://www.francescomontagna.com" target="_blank" rel='noreferrer'><FontAwesomeIcon icon={faUserCircle} size='lg'/></a>
 
       </Navbar>
 
       <Container fluid>
 
-        <Row>
-          
-
+        <Row className='vheight-100'>
           <Col as='aside' md={3}>
-          <ListGroup as="ul" variant="flush" defaultActiveKey="#all">
-            <ListGroup.Item action href="#all" >All</ListGroup.Item>
-            <ListGroup.Item action href="#important" >Important</ListGroup.Item>
-            <ListGroup.Item action href="#today" >Today</ListGroup.Item>
-            <ListGroup.Item action href="#next-week" >Next 7 Days</ListGroup.Item>
-            <ListGroup.Item action href="#private" >Private</ListGroup.Item>
-          </ListGroup>
+            <ListGroup variant="flush" defaultActiveKey="#all">
+              <ListGroup.Item action href="#all" >All</ListGroup.Item>
+              <ListGroup.Item action href="#important" >Important</ListGroup.Item>
+              <ListGroup.Item action href="#today" >Today</ListGroup.Item>
+              <ListGroup.Item action href="#next-week" >Next 7 Days</ListGroup.Item>
+              <ListGroup.Item action href="#private" >Private</ListGroup.Item>
+            </ListGroup>
           </Col>
 
           <Col as='main' sm={9}>
             <h1 className="pt-1 filter-heading d-flex justify-content-left">All</h1>
 
-            <Form>
               <ListGroup as="ul" variant="flush">
-                <ListGroup.Item>
-                  <Form.Group controlId="1">
-                    <Form.Check type="checkbox" label="Complete Lab 4" />
-                  </Form.Group>
+                  <ListGroup.Item as={Row} className="d-flex">
+                    <Form.Group controlId="1" as={Col} xs={6}>
+                      <Form.Check type="checkbox" label="Complete Lab 4" />
+                    </Form.Group>
 
-                </ListGroup.Item>
+                    <Col as="span" xs={1}>
+                      Gay
+                    </Col>
+
+                    <Col as="span" xs={5} className="date">
+                      Date
+                    </Col>
+                  </ListGroup.Item>
+
 
 
                 <ListGroup.Item>
@@ -87,8 +92,6 @@ function App() {
                 </ListGroup.Item>
 
               </ListGroup>
-
-            </Form>
 
           </Col>
 
